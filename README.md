@@ -49,7 +49,6 @@ Synapse IMS is a full-stack web application built to simplify student administra
 * PostgreSQL
 
 **Other Tools**
-* Node.js
 * Git & GitHub
 
 ## Future Improvements
