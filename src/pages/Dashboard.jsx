@@ -65,7 +65,7 @@ function Dashboard() {
       <div className="page-header" style={{ marginBottom: "40px" }}>
         <div>
           <h1 className="page-title" style={{ fontSize: "32px", fontWeight: "900", letterSpacing: "-0.5px" }}>
-            Synapse AWS <span style={{ fontSize: "14px", fontWeight: "600", padding: "4px 8px", background: "rgba(99, 102, 241, 0.15)", color: "#a5b4fc", borderRadius: "6px", marginLeft: "8px", verticalAlign: "middle" }}>v1.0.0</span>
+            Synapse IMS <span style={{ fontSize: "14px", fontWeight: "600", padding: "4px 8px", background: "rgba(99, 102, 241, 0.15)", color: "#a5b4fc", borderRadius: "6px", marginLeft: "8px", verticalAlign: "middle" }}>v1.0.0</span>
           </h1>
           <p className="page-subtitle" style={{ fontSize: "15px", marginTop: "6px", color: "var(--muted)" }}>
             Automated Working System — Real-time oversight, automated revenue, and registry auditing.
