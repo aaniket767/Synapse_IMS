@@ -47,35 +47,20 @@ function Admission() {
 
     setFormData({
       student_name: data.name || "",
-
       father_name: data.father_name || "",
-
       mother_name: data.mother_name || "",
-
       dob: data.dob || "",
-
       gender: data.gender || "",
-
       category: data.category || "",
-
       aadhaar_no: data.aadhaar_no || "",
-
       mobile_no: data.phone || "",
-
       father_mobile_no: data.father_mobile_no || "",
-
       address: data.address || "",
-
       course: data.class || "",
-
       roll_no: data.roll_no || "",
-
       admission_date: data.admission_date || "",
-
       total_fee: data.total_fee || "",
-
       other_fee: data.other_fee || "",
-
       discount_fee: data.discount_fee || "",
     });
 
@@ -155,7 +140,17 @@ function Admission() {
 
         dbError = error;
       } else {
-        const studentCode = `ST${Date.now()}`;
+        const year = new Date().getFullYear();
+
+        const { count } = await supabase.from("students").select("*", {
+          count: "exact",
+          head: true,
+        });
+
+        const studentCode = `ST${year}${String((count || 0) + 1).padStart(
+          3,
+          "0",
+        )}`;
 
         const { error } = await supabase.from("students").insert([
           {
@@ -169,7 +164,6 @@ function Admission() {
       }
 
       if (dbError) throw dbError;
-      
 
       alert("Student Profile Registered Successfully!");
       navigate("/students");

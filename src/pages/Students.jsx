@@ -24,15 +24,33 @@ function Students() {
     setStudents(data);
   }
 
-  const deleteStudent = async (id) => {
-    const confirmDelete = window.confirm("Delete this student?");
+  const deleteStudent = async (student) => {
+    const confirmDelete = window.confirm(
+      "Delete this student and all payment history?",
+    );
+
     if (!confirmDelete) return;
 
-    const { error } = await supabase.from("students").delete().eq("id", id);
-    if (error) {
-      console.error(error);
+    const { error: paymentError } = await supabase
+      .from("payments")
+      .delete()
+      .eq("student_id", student.student_id);
+
+    if (paymentError) {
+      console.error(paymentError);
       return;
     }
+
+    const { error: studentError } = await supabase
+      .from("students")
+      .delete()
+      .eq("id", student.id);
+
+    if (studentError) {
+      console.error(studentError);
+      return;
+    }
+
     fetchStudents();
   };
 
@@ -128,7 +146,7 @@ function Students() {
                     </button>
                     <button
                       className="delete-btn"
-                      onClick={() => deleteStudent(student.id)}
+                      onClick={() => deleteStudent(student)}
                     >
                       Delete
                     </button>

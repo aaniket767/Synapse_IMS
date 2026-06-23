@@ -467,34 +467,64 @@ function Reports() {
       <div style={{ display: "none" }}>
         <div
           id="printable-receipt-canvas"
-          style={{ width: "100%", maxWidth: "440px", margin: "0 auto" }}
+          style={{ width: "100%", maxWidth: "800px", padding: "20px", margin: "0 auto" }}
         >
-          <div style={{ textAlign: "center", marginBottom: "15px" }}>
-            <h2
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "12px",
+              marginBottom: "15px",
+            }}
+          >
+            <img
+              src="/logo.jpeg"
+              alt="Institute Logo"
               style={{
-                margin: "0 0 2px 0",
-                fontSize: "19px",
-                fontWeight: "800",
+                width: "100px",
+                height:"100px",
+                objectFit: "contain",
               }}
-            >
-              SUCCESS WITH CLASS
-            </h2>
-            <p style={{ margin: "0 0 5px 0", fontSize: "11px", color: "#333" }}>
-              Patut, Bikram, Patna
-            </p>
-            <div
-              style={{
-                fontSize: "13px",
-                fontWeight: "bold",
-                borderBottom: "2px solid #000000",
-                display: "inline-block",
-                paddingBottom: "2px",
-                textTransform: "uppercase",
-                marginTop: "5px",
-              }}
-            >
-              Payment Slip
+            />
+
+            <div style={{ textAlign: "left" }}>
+              <h2
+                style={{
+                  margin: "0 0 2px 0",
+                  fontSize: "28px",
+                  fontWeight: "800",
+                }}
+              >
+                SUCCESS WITH CLASS
+              </h2>
+
+              <p
+                style={{
+                  margin: "0",
+                  fontSize: "15px",
+                  color: "#333",
+                }}
+              >
+                Patut, Bikram, Patna
+              </p>
             </div>
+          </div>
+
+          <div
+            style={{
+              textAlign: "center",
+              fontSize: "18px",
+              letterSpacing: "1px",
+              fontWeight: "bold",
+              borderBottom: "2px solid #000",
+              display: "block",
+              paddingBottom: "4px",
+              textTransform: "uppercase",
+              marginBottom: "10px",
+            }}
+          >
+            Payment Slip
           </div>
 
           <table>
@@ -524,17 +554,14 @@ function Reports() {
                 <td>{currentFormattedDate}</td>
               </tr>
               <tr>
-                <th>Month Paid</th>
+                <th>Paid Till</th>
                 <td>{paidTillMonth || "Not Selected"}</td>
               </tr>
               <tr>
                 <th>Received Amount</th>
                 <td>₹ {totalPaid ? Number(totalPaid).toFixed(2) : "0.00"}</td>
               </tr>
-              <tr>
-                <th>Payment Mode</th>
-                <td>Cash</td>
-              </tr>
+
               <tr>
                 <th>Fee Payable</th>
                 <td>₹ {calculatedFeePayable}</td>
