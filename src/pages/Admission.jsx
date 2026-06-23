@@ -142,16 +142,20 @@ function Admission() {
       } else {
         const year = new Date().getFullYear();
 
-        const { count } = await supabase.from("students").select("*", {
-          count: "exact",
-          head: true,
-        });
+        const { data: lastStudent } = await supabase
+          .from("students")
+          .select("student_id")
+          .order("student_id", { ascending: false })
+          .limit(1)
+          .single();
 
-        const studentCode = `ST${year}${String((count || 0) + 1).padStart(
-          3,
-          "0",
-        )}`;
+        let nextNumber = 1;
 
+        if (lastStudent?.student_id) {
+          nextNumber = parseInt(lastStudent.student_id.slice(-3)) + 1;
+        }
+
+        const studentCode = `ST${year}${String(nextNumber).padStart(3, "0")}`;
         const { error } = await supabase.from("students").insert([
           {
             student_id: studentCode,
