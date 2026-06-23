@@ -1,8 +1,0 @@
-To do list NEW UPDATE
-
->student karu payment me update ho jaye
->logo laga de jaise apka databse me tha
->login page
->student id chota sa real 
->id no. chota reasonable lage
-> fees receipt add lru toh print krbe ka option aajaye
