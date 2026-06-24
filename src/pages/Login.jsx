@@ -25,7 +25,7 @@ function Login() {
     <div className="login-page">
       <div className="login-card">
         <div className="login-logo-wrapper">
-          <img src="/logo.jpeg" alt="SWC" className="login-logo" />
+          <img src="/Synapse_logo.png" alt="SWC" className="login-logo" />
         </div>
 
         <h1 className="login-title">Synapse IMS</h1>

@@ -15,6 +15,11 @@ function Reports() {
   // Default ko empty rakha hai taaki auto-select na ho
   const [paidTillMonth, setPaidTillMonth] = useState("");
   const [generatedPaymentId, setGeneratedPaymentId] = useState("");
+  const tableCellStyle = {
+    padding: "10px 14px",
+    border: "1px solid #000",
+    fontSize: "16px",
+  };
 
   const monthNames = [
     "January",
@@ -100,7 +105,7 @@ function Reports() {
             table { width: 100%; max-width: 440px; margin: 12px auto; border-collapse: collapse; }
             th { background: #ffffff !important; color: #000000 !important; padding: 7px 12px; text-align: left; font-weight: normal; width: 45%; border: 1px solid #000000 !important; }
             td { padding: 7px 12px; text-align: left; font-weight: bold; border: 1px solid #000000 !important; }
-            .assistance-bar { background-color: #a4bdf2 !important; text-align: center; padding: 7px; font-weight: normal; font-size: 11.5px; border: 1px solid #7395e3; max-width: 416px; margin: 15px auto; }
+            .assistance-bar { background-color: #a4bdf2 !important; text-align: center; padding: 7px; font-weight: normal; font-size: 16px; border: 1px solid #7395e3; max-width: 416px; margin: 15px auto; }
             .footer-signatures { display: flex; justify-content: space-between; max-width: 440px; margin: 45px auto 10px auto; padding: 0 5px; }
             .sig-block { font-size: 12px; color: #000000; width: 100px; text-align: center; }
             * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
@@ -249,7 +254,7 @@ function Reports() {
                     fontSize: "14px",
                   }}
                 >
-                  🔍 No student entries matched that search text
+                  No student entries matched that search text
                 </div>
               ) : (
                 filteredStudentSearchOptions.map((student) => (
@@ -467,116 +472,136 @@ function Reports() {
       <div style={{ display: "none" }}>
         <div
           id="printable-receipt-canvas"
-          style={{ width: "100%", maxWidth: "800px", padding: "20px", margin: "0 auto" }}
+          style={{
+            width: "100%",
+            maxWidth: "800px",
+            padding: "20px",
+            margin: "0 auto",
+          }}
         >
           <div
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "12px",
-              marginBottom: "15px",
+              textAlign: "center",
+              marginBottom: "10px",
             }}
           >
             <img
-              src="/logo.jpeg"
+              src="/logo.png"
               alt="Institute Logo"
               style={{
                 width: "100px",
-                height:"100px",
+                height: "100px",
                 objectFit: "contain",
+                display: "block",
+                margin: "0 auto",
               }}
             />
 
-            <div style={{ textAlign: "left" }}>
-              <h2
-                style={{
-                  margin: "0 0 2px 0",
-                  fontSize: "28px",
-                  fontWeight: "800",
-                }}
-              >
-                SUCCESS WITH CLASS
-              </h2>
+            <h2
+              style={{
+                margin: "5px 0",
+                fontSize: "28px",
+                fontWeight: "800",
+              }}
+            >
+              SUCCESS WITH CLASS
+            </h2>
 
-              <p
-                style={{
-                  margin: "0",
-                  fontSize: "15px",
-                  color: "#333",
-                }}
-              >
-                Patut, Bikram, Patna
-              </p>
-            </div>
+            <p
+              style={{
+                margin: "0",
+                fontSize: "15px",
+                color: "#333",
+              }}
+            >
+              Patut, Bikram, Patna
+            </p>
           </div>
 
           <div
             style={{
               textAlign: "center",
               fontSize: "18px",
-              letterSpacing: "1px",
               fontWeight: "bold",
               borderBottom: "2px solid #000",
-              display: "block",
               paddingBottom: "4px",
-              textTransform: "uppercase",
               marginBottom: "10px",
             }}
           >
-            Payment Slip
+            PAYMENT SLIP
           </div>
-
-          <table>
+          <table
+            style={{
+              width: "100%",
+              margin: "0 auto",
+              borderCollapse: "collapse",
+            }}
+          >
             <tbody>
               <tr>
-                <th>Payment ID</th>
-                <td>{generatedPaymentId || "—"}</td>
-              </tr>
-              <tr>
-                <th>Roll No</th>
-                <td>{selectedStudent?.roll_no || "—"}</td>
-              </tr>
-              <tr>
-                <th>Course</th>
-                <td>{selectedStudent?.class || "—"}</td>
-              </tr>
-              <tr>
-                <th>Student Name</th>
-                <td>{selectedStudent?.name || "—"}</td>
-              </tr>
-              <tr>
-                <th>Father's Name</th>
-                <td>{selectedStudent?.father_name || "—"}</td>
-              </tr>
-              <tr>
-                <th>Payment Date</th>
-                <td>{currentFormattedDate}</td>
-              </tr>
-              <tr>
-                <th>Paid Till</th>
-                <td>{paidTillMonth || "Not Selected"}</td>
-              </tr>
-              <tr>
-                <th>Received Amount</th>
-                <td>₹ {totalPaid ? Number(totalPaid).toFixed(2) : "0.00"}</td>
+                <th style={tableCellStyle}>Payment ID</th>
+                <td style={tableCellStyle}>{generatedPaymentId || "—"}</td>
               </tr>
 
               <tr>
-                <th>Fee Payable</th>
-                <td>₹ {calculatedFeePayable}</td>
+                <th style={tableCellStyle}>Admission No.</th>
+                <td style={tableCellStyle}>
+                  {selectedStudent?.roll_no || "—"}
+                </td>
               </tr>
+
               <tr>
-                <th>Total Paid Amount</th>
-                <td>₹ {totalPaid}</td>
+                <th style={tableCellStyle}>Course</th>
+                <td style={tableCellStyle}>{selectedStudent?.class || "—"}</td>
               </tr>
+
               <tr>
-                <th>Remaining Amount</th>
-                <td>₹ {remainingBalance}</td>
+                <th style={tableCellStyle}>Student Name</th>
+                <td style={tableCellStyle}>{selectedStudent?.name || "—"}</td>
+              </tr>
+
+              <tr>
+                <th style={tableCellStyle}>Father's Name</th>
+                <td style={tableCellStyle}>
+                  {selectedStudent?.father_name || "—"}
+                </td>
+              </tr>
+
+              <tr>
+                <th style={tableCellStyle}>Payment Date</th>
+                <td style={tableCellStyle}>{currentFormattedDate}</td>
+              </tr>
+
+              <tr>
+                <th style={tableCellStyle}>Paid Till</th>
+                <td style={tableCellStyle}>
+                  {paidTillMonth || "Not Selected"}
+                </td>
+              </tr>
+
+              <tr>
+                <th style={tableCellStyle}>Received Amount</th>
+                <td style={tableCellStyle}>
+                  ₹ {totalPaid ? Number(totalPaid).toFixed(2) : "0.00"}
+                </td>
+              </tr>
+
+              <tr>
+                <th style={tableCellStyle}>Fee Payable</th>
+                <td style={tableCellStyle}>₹ {calculatedFeePayable}</td>
+              </tr>
+
+              <tr>
+                <th style={tableCellStyle}>Total Paid Amount</th>
+                <td style={tableCellStyle}>₹ {totalPaid}</td>
+              </tr>
+
+              <tr>
+                <th style={tableCellStyle}>Remaining Amount</th>
+                <td style={tableCellStyle}>₹ {remainingBalance}</td>
               </tr>
             </tbody>
           </table>
-
           <div className="assistance-bar">
             For any assistance call us :- 7277543702 (Office Hrs.)
           </div>
@@ -584,13 +609,13 @@ function Reports() {
           <div className="footer-signatures">
             <div
               className="sig-block"
-              style={{ borderTop: "1px dashed #000", paddingTop: "15px" }}
+              style={{ marginTop: "50px", borderTop: "1px dashed #000", paddingTop: "15px" }}
             >
               Signature
             </div>
             <div
               className="sig-block"
-              style={{ borderTop: "1px dashed #000", paddingTop: "15px" }}
+              style={{  marginTop: "50px", borderTop: "1px dashed #000", paddingTop: "15px" }}
             >
               Stamp
             </div>

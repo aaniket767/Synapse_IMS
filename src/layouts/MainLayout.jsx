@@ -73,7 +73,7 @@ function MainLayout({ children }) {
       >
         {/* Logo */}
         <div className="logo-container">
-          <img src="/logo.jpeg" alt="SWC Logo" className="sidebar-logo" />
+          <img src="/logo.png" alt="SWC Logo" className="sidebar-logo" />
         </div>
 
         {/* Navigation */}
