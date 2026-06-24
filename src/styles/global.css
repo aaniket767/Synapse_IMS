@@ -175,26 +175,26 @@ body {
 /* SIDEBAR  Only Icons - Hover to Expand Sidebar */
 
 .sidebar {
-  width: 78px; /* Default narrow state showing only icons */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 220px;
+  height: 100vh;
   background: var(--sidebar);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
   border-right: 1px solid var(--border);
-  padding: 30px 12px;
+  padding: 24px 14px;
   display: flex;
   flex-direction: column;
-
-  /* Smoothly animates the expanding panel width and spacing adjustments */
-  transition:
-    width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-    padding 0.35s ease;
-  overflow: hidden; /* Stops long text labels from spilling out when collapsed */
 }
 
-/* Expanding the panel dynamically when cursor enters the workspace container */
-.sidebar:hover {
-  width: 260px;
-  padding: 30px 18px;
+.sidebar-logo {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 18px;
+}
+.sidebar-footer {
+  margin-top: auto;
 }
 
 .logo-container {
@@ -255,18 +255,18 @@ nav {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  flex: 1;
 }
 
 .nav-link {
   display: flex;
   align-items: center;
-  padding: 14px 16px;
+  padding: 12px 14px;
   border-radius: 12px;
   color: var(--muted);
   text-decoration: none;
-  font-weight: 500;
   font-size: 14px;
-  white-space: nowrap;
+  font-weight: 500;
   transition: all 0.2s ease;
 }
 
@@ -284,23 +284,9 @@ nav {
   transform: scale(1.1);
   color: #ffffff;
 }
-
-/* Isolate the navigation text nodes so they clear columns nicely */
 .nav-text {
-  margin-left: 18px; /* makes separation gap from the icon */
-  opacity: 0;
-  transform: translateX(-15px);
-  transition:
-    opacity 0.2s ease,
-    transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-left: 14px;
 }
-
-/* Reveal labels instantly when the main panel container wrapper expands */
-.sidebar:hover .nav-text {
-  opacity: 1;
-  transform: translateX(0);
-}
-
 .nav-link:hover {
   background: rgba(255, 255, 255, 0.04);
   color: #ffffff;
@@ -316,33 +302,15 @@ nav {
 .nav-link.active svg {
   color: #818cf8;
 }
-.admin-box {
-  margin-top: auto;
-  padding: 14px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.01);
-  border: 1px solid var(--border);
-  color: var(--text);
-  font-size: 14px;
-  text-align: center;
-  white-space: nowrap;
 
-  opacity: 0;
-  transform: translateY(10px);
-  transition:
-    opacity 0.2s ease,
-    transform 0.2s ease;
-}
-
-.sidebar:hover .admin-box {
-  opacity: 1;
-  transform: translateY(0);
-}
 .main-content {
   flex: 1;
+  height: 100vh;
+  overflow-y: auto;
   padding: 40px;
   max-width: 1400px;
   margin: 0 auto;
+  margin-left: 220px;
   width: 100%;
 }
 .modal-overlay {
@@ -548,7 +516,61 @@ nav {
   .mobile-expanded {
     transform: translateX(
       0
-    ) !important; /* Slides into viewport overlaying content */
+    ) !important; 
     box-shadow: 8px 0 24px rgba(0, 0, 0, 0.6);
   }
+}
+/* Logout profile */
+.profile-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 12px 14px;
+
+  border-radius: 16px;
+
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.user-role {
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: capitalize;
+}
+
+.logout-btn {
+  width: 34px;
+  height: 34px;
+
+  border-radius: 10px;
+  border: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(239,68,68,0.08);
+  color: #ef4444;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+  background: rgba(239,68,68,0.18);
+  transform: scale(1.05);
 }

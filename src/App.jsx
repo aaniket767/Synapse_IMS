@@ -1,4 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Login from "./pages/Login";
+import ProtectedRoute from "./pages/ProtectedRoute";
+
 import MainLayout from "./layouts/MainLayout";
 import StudentProfile from "./pages/StudentProfile";
 import Dashboard from "./pages/Dashboard";
@@ -11,18 +15,30 @@ import Reports from "./pages/Reports";
 function App() {
   return (
     <BrowserRouter>
-      <MainLayout>
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/students" element={<Students />} />
-          <Route path="/students/:id" element={<StudentProfile />} />
-          <Route path="/admission" element={<Admission />} />
-          <Route path="/admission/:id" element={<Admission />} />
-          <Route path="/teachers" element={<Teachers />} />
-          <Route path="/fees" element={<Fees />} />
-          <Route path="/reports" element={<Reports />} />
-        </Routes>
-      </MainLayout>
+      <Routes>
+
+        <Route path="/login" element={<Login />} />
+
+        <Route
+          path="*"
+          element={
+            <ProtectedRoute>
+              <MainLayout>
+                <Routes>
+                  <Route path="/" element={<Dashboard />} />
+                  <Route path="/students" element={<Students />} />
+                  <Route path="/students/:id" element={<StudentProfile />} />
+                  <Route path="/admission" element={<Admission />} />
+                  <Route path="/admission/:id" element={<Admission />} />
+                  <Route path="/teachers" element={<Teachers />} />
+                  <Route path="/fees" element={<Fees />} />
+                  <Route path="/reports" element={<Reports />} />
+                </Routes>
+              </MainLayout>
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
     </BrowserRouter>
   );
 }

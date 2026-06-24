@@ -75,7 +75,7 @@ function StudentProfile() {
 
           <div className="profile-grid">
             <p><strong>Student ID:</strong> {student.student_id}</p>
-            {student.roll_no && <p><strong>Roll No:</strong> {student.roll_no}</p>}
+            {student.roll_no && <p><strong>Admisson No.:</strong> {student.roll_no}</p>}
             {student.class && <p><strong>Course:</strong> {student.class}</p>}
             {student.admission_date && <p><strong>Admission Date:</strong> {student.admission_date}</p>}
             {student.father_name && <p><strong>Father Name:</strong> {student.father_name}</p>}
