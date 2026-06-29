@@ -168,6 +168,7 @@ function Reports() {
       .map((student, idx) => {
         const sTotalFee = Number(student.total_fee || 0);
         const sOtherFee = Number(demandOtherFee || 0);
+        const sCumOtherFee = Number(student.other_fee || 0);
         const sDiscountFee = Number(student.discount_fee || 0);
         const sTotalPaid = Number(student.total_paid || 0);
         const sNote = demandOtherFeeNote || "";
@@ -181,7 +182,7 @@ function Reports() {
               (sNow.getMonth() - sStart.getMonth()),
           );
         }
-        const sExpectedSoFar = sMonths * sTotalFee - sDiscountFee;
+        const sExpectedSoFar = sMonths * sTotalFee + sCumOtherFee - sDiscountFee;
         const sBackDues = Math.max(0, sExpectedSoFar - sTotalPaid);
         const sMonthlyFee = sTotalFee;
         const sTotalPayable = sMonthlyFee + sOtherFee + sBackDues;

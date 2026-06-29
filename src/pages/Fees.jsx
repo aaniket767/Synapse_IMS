@@ -274,10 +274,10 @@ function Fees() {
               <th>Receipt Code</th>
               <th>Student ID</th>
               <th>Payer Name</th>
-              <th>Class/Course</th>
+              <th>Class</th>
               <th>Payment Date</th>
               <th>Amount Paid</th>
-              <th>Note</th>
+              <th>Other fee for</th>
               <th>Dues</th>
             </tr>
           </thead>
