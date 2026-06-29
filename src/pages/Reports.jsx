@@ -17,6 +17,8 @@ function Reports() {
   const [paidTillMonth, setPaidTillMonth] = useState("");
   const [generatedPaymentId, setGeneratedPaymentId] = useState("");
   const [latestPaymentNote, setLatestPaymentNote] = useState("");
+  const [invoiceOtherFee, setInvoiceOtherFee] = useState("");
+  const [invoiceOtherFeeNote, setInvoiceOtherFeeNote] = useState("");
   const [demandOtherFee, setDemandOtherFee] = useState("");
   const [demandOtherFeeNote, setDemandOtherFeeNote] = useState("");
   const tableCellStyle = {
@@ -74,6 +76,8 @@ function Reports() {
     setStudentSearchInput(`${student.name} (${student.student_id})`);
     setShowDropdown(false);
     setPaidTillMonth("");
+    setInvoiceOtherFee(student.other_fee || "");
+    setInvoiceOtherFeeNote("");
 
     // Unique Payment ID Generator
     const currentYear = new Date().getFullYear();
@@ -85,7 +89,7 @@ function Reports() {
   };
 
   const fetchLatestPaymentNote = async (studentId) => {
-    if (!studentId) { setLatestPaymentNote(""); return; }
+    if (!studentId) { setLatestPaymentNote(""); setInvoiceOtherFeeNote(""); return; }
     try {
       const { data } = await supabase
         .from("payments")
@@ -94,8 +98,10 @@ function Reports() {
         .order("id", { ascending: false })
         .limit(1)
         .maybeSingle();
-      setLatestPaymentNote(data?.note || "");
-    } catch { setLatestPaymentNote(""); }
+      const note = data?.note || "";
+      setLatestPaymentNote(note);
+      setInvoiceOtherFeeNote(note);
+    } catch { setLatestPaymentNote(""); setInvoiceOtherFeeNote(""); }
   };
 
   const handlePrintReceipt = () => {
@@ -175,10 +181,10 @@ function Reports() {
               (sNow.getMonth() - sStart.getMonth()),
           );
         }
-        const sExpectedSoFar = sMonths * sTotalFee + sOtherFee - sDiscountFee;
+        const sExpectedSoFar = sMonths * sTotalFee - sDiscountFee;
         const sBackDues = Math.max(0, sExpectedSoFar - sTotalPaid);
         const sMonthlyFee = sTotalFee;
-        const sTotalPayable = sMonthlyFee + sBackDues;
+        const sTotalPayable = sMonthlyFee + sOtherFee + sBackDues;
         const sNetPayable = sMonthlyFee + sOtherFee;
 
         const concatNo = `DEM-${currentYear}-${String(idx + 1).padStart(4, "0")}`;
@@ -266,7 +272,7 @@ function Reports() {
 
   // Calculations (monthly fee basis with carry-forward)
   const monthlyFee = Number(selectedStudent?.total_fee || 0);
-  const otherFee = Number(selectedStudent?.other_fee || 0);
+  const otherFee = Number(invoiceOtherFee || selectedStudent?.other_fee || 0);
   const discountFee = Number(selectedStudent?.discount_fee || 0);
   const totalPaid = Number(selectedStudent?.total_paid || 0);
 
@@ -576,6 +582,8 @@ function Reports() {
                       setStudentSearchInput("");
                       setPaidTillMonth("");
                       setLatestPaymentNote("");
+                      setInvoiceOtherFee("");
+                      setInvoiceOtherFeeNote("");
                     }}
                     style={{
                       background: "none",
@@ -691,6 +699,65 @@ function Reports() {
                   >
                     <MdPrint style={{ fontSize: "16px" }} /> Print Invoice Bill
                   </button>
+                </div>
+
+                <div style={{ marginTop: "18px", borderTop: "1px solid var(--border)", paddingTop: "14px" }}>
+                  <strong
+                    style={{
+                      display: "block",
+                      marginBottom: "6px",
+                      fontSize: "13px",
+                      color: "#94a3b8",
+                    }}
+                  >
+                    Other Fee (₹)
+                  </strong>
+                  <input
+                    type="number"
+                    placeholder="e.g. 500"
+                    value={invoiceOtherFee}
+                    onChange={(e) => setInvoiceOtherFee(e.target.value)}
+                    style={{
+                      width: "100%",
+                      padding: "10px 14px",
+                      background: "rgba(15, 23, 42, 0.6)",
+                      border: "1px solid var(--border)",
+                      borderRadius: "10px",
+                      color: "#fff",
+                      fontSize: "13px",
+                      outline: "none",
+                      marginBottom: "10px",
+                      boxSizing: "border-box",
+                    }}
+                  />
+
+                  <strong
+                    style={{
+                      display: "block",
+                      marginBottom: "6px",
+                      fontSize: "13px",
+                      color: "#94a3b8",
+                    }}
+                  >
+                    What is this Other Fee for?
+                  </strong>
+                  <input
+                    type="text"
+                    placeholder='e.g. Books, Supplies, Uniform...'
+                    value={invoiceOtherFeeNote}
+                    onChange={(e) => setInvoiceOtherFeeNote(e.target.value)}
+                    style={{
+                      width: "100%",
+                      padding: "10px 14px",
+                      background: "rgba(15, 23, 42, 0.6)",
+                      border: "1px solid var(--border)",
+                      borderRadius: "10px",
+                      color: "#fff",
+                      fontSize: "13px",
+                      outline: "none",
+                      boxSizing: "border-box",
+                    }}
+                  />
                 </div>
               </div>
             )}
@@ -1104,7 +1171,7 @@ function Reports() {
                     fontSize: "15px",
                   }}
                 >
-                  Other Fee{latestPaymentNote ? ` (${latestPaymentNote})` : ""}
+                  Other Fee{invoiceOtherFeeNote ? ` (${invoiceOtherFeeNote})` : ""}
                 </th>
                 <td
                   style={{
