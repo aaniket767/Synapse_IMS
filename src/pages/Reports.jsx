@@ -532,7 +532,7 @@ function Reports() {
             )}
 
             {/* SELECTED STUDENT INFO + PRINT CONTROLS */}
-            {selectedStudent ? (
+            {selectedStudent && (
               <div
                 style={{
                   background:
@@ -570,6 +570,27 @@ function Reports() {
                       </span>
                     </p>
                   </div>
+                  <button
+                    onClick={() => {
+                      setSelectedStudent(null);
+                      setStudentSearchInput("");
+                      setPaidTillMonth("");
+                      setLatestPaymentNote("");
+                    }}
+                    style={{
+                      background: "none",
+                      border: "none",
+                      color: "#94a3b8",
+                      fontSize: "20px",
+                      cursor: "pointer",
+                      padding: "4px 8px",
+                      borderRadius: "6px",
+                      lineHeight: 1,
+                    }}
+                    title="Clear selection"
+                  >
+                    ×
+                  </button>
                 </div>
 
                 <div
@@ -672,23 +693,9 @@ function Reports() {
                   </button>
                 </div>
               </div>
-            ) : (
-              <div
-                style={{
-                  textAlign: "center",
-                  padding: "30px",
-                  border: "2px dashed var(--border)",
-                  borderRadius: "12px",
-                }}
-              >
-                <p
-                  style={{ margin: 0, color: "var(--muted)", fontSize: "13px" }}
-                >
-                  Select a student above to print invoice bill.
-                </p>
-              </div>
             )}
           </div>
+
 
           {/* ===== SECTION 2: DEMAND BILL (CLASS WISE) ===== */}
           <div
